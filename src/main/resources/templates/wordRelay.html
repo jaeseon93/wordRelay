@@ -21,48 +21,49 @@
     <input type="text">
     <button>입력</button>
 
-</body>
-<script>
-    // 문자열로 인식하므로 숫자일 때는 명시해주기
-    // prompt() : 사용자로부터 값을 전달 받는다
-    const number = parseInt(prompt('몇 명이 참가하나요?'));
-    const $word = document.querySelector("#word");
-    const $input = document.querySelector('input');
-    const $order = document.querySelector('#order');
-    let word;       // 제시어
-    let newWord;    // 새로 입력한 단어
+    <script>
+        // 문자열로 인식하므로 숫자일 때는 명시해주기
+        // prompt() : 사용자로부터 값을 전달 받는다
+        const number = parseInt(prompt('몇 명이 참가하나요?'));
+        const $word = document.querySelector("#word");
+        const $input = document.querySelector('input');
+        const $order = document.querySelector('#order');
+        let word;       // 제시어
+        let newWord;    // 새로 입력한 단어
 
-    const onclickButton = () => {
-        console.log('버튼 클릭');
-        // 제시어가 비어있지 않거나 단어가 올바르면
-        if(!word || word[word.length - 1] === newWord[0]) { // 문자열도 length 사용가능함. 이전 끝글자와 제시받은 마지막글자가 같은지 비교
-            word = newWord; // 입력된 단어가 제시어
-            $word.textContent = word;   // 제시어 변경
-            $input.value = '';  // input 태그 초기화
-            $input.focus();
+        const onclickButton = () => {
+            console.log('버튼 클릭');
+            // 제시어가 비어있거나 단어가 올바르면
+            if(!word || word[word.length - 1] === newWord[0]) { // 문자열도 length 사용가능함. 이전 끝글자와 제시받은 마지막글자가 같은지 비교
+                word = newWord; // 입력된 단어가 제시어
+                $word.textContent = word;   // 제시어 변경
+                $input.value = '';  // input 태그 초기화
+                $input.focus();
 
-            const order = parseInt($order.textContent);   // 문자열을 int 로 : 현재순서
-            if(order + 1 > number) {
-                $order.textContent = 1;
-            } else {
-                $order.textContent = order + 1;
-            }
+                const order = parseInt($order.textContent);   // 문자열을 int 로 : 현재순서
+                if(order + 1 > number) {
+                    $order.textContent = 1;
+                } else {
+                    $order.textContent = order + 1;
+                }
             // 단어가 올바르지 않다면
-        } else {
-            alert('단어가 올바르지 않습니다.');
-            $input.focus();
+            } else {
+                alert('단어가 올바르지 않습니다.');
+                $input.focus();
+            }
+
         }
-    }
+        const onInput = function (event) {
+            console.log('글자 입력', event.target.value);
+            newWord = event.target.value;
+        }
 
-    const onInput = function (event) {
-        console.log('값 출력', event.target.value);
-        newWord = event.target.value;
-    }
+        // input 태그에 글자를 쓰거나 입력을 하면
+        document.querySelector('input').addEventListener('input', onInput);
+        // 버튼태그를 클릭하면
+        document.querySelector('button').addEventListener('click', onclickButton);
 
-    // input 태그에 글자를 쓰거나 입력을 하면
-    document.querySelector('input').addEventListener('input', onInput);
-    // 버튼태그를 클릭하면
-    document.querySelector('button').addEventListener('click', onclickButton);
+    </script>
 
-</script>
+</body>
 </html>
